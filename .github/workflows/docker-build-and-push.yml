@@ -1,0 +1,28 @@
+name: Docker Build and Push to ECR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker image
+        run: |
+          docker build -t monitoring-app:latest .
+          docker tag monitoring-app:latest 982081066879.dkr.ecr.us-east-1.amazonaws.com/monitoring-app:latest
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push 982081066879.dkr.ecr.us-east-1.amazonaws.com/monitoring-app:latest
