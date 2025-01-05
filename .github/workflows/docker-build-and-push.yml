@@ -11,24 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: us-east-1  # Configurá la región aquí (ajustá si usás otra)
+      AWS_REGION: us-east-1 
 
     steps:
-      # 1. Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Iniciar sesión en Amazon ECR
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }}
 
-      # 3. Construir la imagen Docker
       - name: Build Docker image
         run: |
           docker build -t monitoring-app:latest .
           docker tag monitoring-app:latest 982081066879.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/monitoring-app:latest
 
-      # 4. Subir la imagen a ECR
       - name: Push Docker image to ECR
         run: |
           docker push 982081066879.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/monitoring-app:latest
