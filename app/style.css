@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f9;
+    background-color: #ecbddd;
     margin: 0;
     padding: 0;
 }
@@ -11,11 +11,11 @@ body {
 }
 
 h1 {
-    color: #333;
+    color: #e80f40;
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #fc5454;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -24,5 +24,5 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #e80f0f;
 }
