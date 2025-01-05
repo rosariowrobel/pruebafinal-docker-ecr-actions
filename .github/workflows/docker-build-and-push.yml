@@ -10,6 +10,9 @@ jobs:
     name: Build and Push Docker Image to ECR
     runs-on: ubuntu-latest
 
+    env:
+      AWS_REGION: us-east-1  # Configurá la región aquí (ajustá si usás otra)
+
     steps:
       # 1. Clonar el repositorio
       - name: Checkout repository
@@ -23,9 +26,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t monitoring-app:latest .
-          docker tag monitoring-app:latest 982081066879.dkr.ecr.us-east-1.amazonaws.com/monitoring-app:latest
+          docker tag monitoring-app:latest 982081066879.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/monitoring-app:latest
 
       # 4. Subir la imagen a ECR
       - name: Push Docker image to ECR
         run: |
-          docker push 982081066879.dkr.ecr.us-east-1.amazonaws.com/monitoring-app:latest
+          docker push 982081066879.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/monitoring-app:latest
